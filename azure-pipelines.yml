@@ -4,7 +4,7 @@ trigger:
 resources:
 - repo: self
 
-Variables:
+variables:
   - group: "CICD"
   - name: app_var
     value: $[variables.appVariable]
@@ -23,12 +23,16 @@ stages:
     pool: local-agent
 
     steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        repository: $(parameters.imageName)
-        command: build
-        dockerfile: '**/qa.dockerfile'
-        tags: $(parameters.tag)
+     - script:
+        echo "var=$(app_var)"
+        echo "tag= ${{ parameters.tag }}"
+
+     - task: Docker@2
+       displayName: Build an image
+       inputs:
+       repository: $(parameters.imageName)
+       command: build
+       dockerfile: '**/qa.dockerfile'
+       tags: $(parameters.tag)
         argumets: '--build-arg AAP_ENV=$(app_var)'
         containerRegistry: 'registruConnection'
