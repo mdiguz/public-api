@@ -35,4 +35,4 @@ stages:
         dockerfile: '**/qa.dockerfile'
         tags: $(parameters.tag)
         arguments: '--build-arg AAP_ENV=$(app_var)'
-        containerRegistry: 'registruConnection'
+        containerRegistry: 'registryConnection'
