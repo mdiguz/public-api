@@ -30,9 +30,9 @@ stages:
      - task: Docker@2
        displayName: Build an image
        inputs:
-       repository: $(parameters.imageName)
-       command: build
-       dockerfile: '**/qa.dockerfile'
-       tags: $(parameters.tag)
-        argumets: '--build-arg AAP_ENV=$(app_var)'
+        repository: ${{parameters.imageName}}
+        command: build
+        dockerfile: '**/qa.dockerfile'
+        tags: $(parameters.tag)
+        arguments: '--build-arg AAP_ENV=$(app_var)'
         containerRegistry: 'registruConnection'
