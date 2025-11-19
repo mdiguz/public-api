@@ -4,10 +4,15 @@ trigger:
 resources:
 - repo: self
 
-variables:
-  tag: '$(Build.BuildId)'
-  imageName: 'public-api'
-  agentName: 'local-agent'
+Variables:
+  - group: "CICD"
+  - name: app_var
+    value: $[variables.appVariable]
+parameters:
+  - name: tag
+    default: "$(Build.BuildId)"
+  - name: imageName
+    default: "public-api"  
 
 stages:
 - stage: Build
@@ -21,7 +26,9 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        repository: $(imageName)
+        repository: $(parameters.imageName)
         command: build
         dockerfile: '**/qa.dockerfile'
-        tags: $(tag)
+        tags: $(parameters.tag)
+        argumets: '--build-arg AAP_ENV=$(app_var)'
+        containerRegistry: 'registruConnection'
