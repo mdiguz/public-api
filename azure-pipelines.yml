@@ -1,8 +1,8 @@
 trigger:
-- main
+  - main
 
 resources:
-- repo: self
+  - repo: self
 
 variables:
   - group: "CICD"
@@ -36,3 +36,10 @@ stages:
          tags: ${{ parameters.tag }}
          arguments: '--build-arg APP_ENV=$(app_var)'
          containerRegistry: 'c14b3890-931b-4fc8-819d-c68bfb154d34'
+
+     - task: Docker@2
+       displayName: Push
+       inputs:
+        command: 'push'
+        repository: ${{ parameters.imageName }}
+        tags: ${{ parameters.tag }}
