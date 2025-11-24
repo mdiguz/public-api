@@ -44,3 +44,10 @@ stages:
          repository: ${{ parameters.imageName }}
          containerRegistry: 'c14b3890-931b-4fc8-819d-c68bfb154d34'
          tags: ${{ parameters.tag }} #Prueba
+  - job: Deploy
+    displayName: Deploy
+    dependsOn: Build
+    pool: local-agent
+    steps:
+     - task: AzureContainerApps@1
+       -script: "echo Deploying"
