@@ -50,4 +50,4 @@ stages:
     pool: local-agent
     steps:
      - task: AzureContainerApps@1
-       -script: "echo Deploying"
+     - script: "echo Deploying"
